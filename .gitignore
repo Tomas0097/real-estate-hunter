@@ -1,6 +1,9 @@
 # MacOS bullshits
 .DS_Store
 
+# temporary files for sqlite3
+src/db.sqlite3
+
 # IDEA
 .idea/*
 
