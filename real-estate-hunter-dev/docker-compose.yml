@@ -1,0 +1,13 @@
+version: '2.4'
+
+services:
+
+  app:
+    container_name: real-estate-hunter-app
+    hostname: real-estate-hunter-app
+    image: flakooo/myprojects:real-estate-hunter-app
+    restart: always
+    volumes:
+      - "..:/opt/real-estate-hunter"
+    ports:
+      - "8088:8088"
