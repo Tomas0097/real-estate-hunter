@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+# The data of this model are not shown in the admin section in the table's column yet.
 class IdModel(models.Model):
     id = models.BigAutoField(unique=True, primary_key=True)
     inserted = models.DateTimeField(
