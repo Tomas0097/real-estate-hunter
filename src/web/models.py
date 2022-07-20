@@ -23,3 +23,27 @@ class Marketplace(IdModel):
     class Meta:
         verbose_name = _("Marketplace")
         verbose_name_plural = _("Marketplaces")
+
+
+class Flat(IdModel):
+    SIZE_1kk = "1+kk"
+    SIZE_11 = "1+1"
+    SIZE_2kk = "2+kk"
+    SIZE_21 = "2+1"
+    SIZE_3kk = "3+kk"
+    SIZE_31 = "3+1"
+    SIZE_4_AND_MORE = "4+"
+    SIZE_CHOICES = [
+        (SIZE_1kk, "1+kk"),
+        (SIZE_11, "1+1"),
+        (SIZE_2kk, "2+kk"),
+        (SIZE_21, "2+1"),
+        (SIZE_3kk, "3+kk"),
+        (SIZE_31, "3+1"),
+        (SIZE_4_AND_MORE, _("4 and more")),
+    ]
+    size = models.CharField(
+        verbose_name=_("Size"),
+        choices=SIZE_CHOICES,
+        max_length=10,
+    )
