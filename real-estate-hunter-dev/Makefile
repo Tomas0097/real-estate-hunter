@@ -7,6 +7,9 @@ manage_command = docker exec -it real-estate-hunter-app /manage.sh
 default:
 	@echo "Please specify target. Check contents of Makefile to see list of available targets."
 
+prepare_database:
+	docker exec -it real-estate-hunter-db /real_estate_hunter-init.sh
+
 makemigrations:
 	$(manage_command) makemigrations -n '_' $(options) web
 
