@@ -1,2 +1,4 @@
 django==4.0.6
+django-environ==0.9.0
 django-light==0.1.0.post3
+mysqlclient==2.1.1
