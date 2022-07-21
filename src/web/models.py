@@ -11,6 +11,13 @@ class Marketplace(IdModel):
         blank=False,
         null=False,
     )
+    code = models.CharField(
+        verbose_name=_("Code"),
+        help_text=_("The app is selecting a parser according to this code."),
+        max_length=40,
+        blank=False,
+        null=False
+    )
     homepage_link = models.URLField(
         verbose_name=_("Homepage link"),
         blank=False,
