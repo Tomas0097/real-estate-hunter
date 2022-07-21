@@ -19,6 +19,9 @@ makemigrations_data:
 migrate:
 	$(manage_command) migrate $(app) $(migration)
 
+create_superuser:
+	$(manage_command) createsuperuser --noinput
+
 app_bash:
 	docker exec -it real-estate-hunter-app bash
 

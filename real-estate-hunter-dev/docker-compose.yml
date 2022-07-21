@@ -14,9 +14,9 @@ services:
     environment:
       DB_HOST: "real-estate-hunter-db"
       DB_PORT: "3306"
-      DJANGO_SUPERUSER_USERNAME: "tomas"
+      DJANGO_SUPERUSER_USERNAME: "admin"
       DJANGO_SUPERUSER_PASSWORD: "1122"
-      DJANGO_SUPERUSER_EMAIL: "tomas.rymon@gmail.com"
+      DJANGO_SUPERUSER_EMAIL: "test@gmail.com"
     ports:
       - "8088:8088"
 
