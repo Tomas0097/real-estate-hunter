@@ -22,6 +22,9 @@ migrate:
 create_superuser:
 	$(manage_command) createsuperuser --noinput
 
+pip_install:
+	docker exec -it real-estate-hunter-app /pip.sh
+
 app_bash:
 	docker exec -it real-estate-hunter-app bash
 
