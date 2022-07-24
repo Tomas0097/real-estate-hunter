@@ -9,6 +9,7 @@ services:
     restart: always
     depends_on:
       - db
+      - selenium-chrome
     volumes:
       - "..:/opt/real-estate-hunter"
     environment:
@@ -30,14 +31,14 @@ services:
     ports:
       - "3306:3306"
 
-# TODO: Adds selenium image for advanced web's frontend
-#  selenium:
-#    container_name: real-estate-hunter-selenium
-#    hostname: real-estate-hunter-selenium
+  selenium-chrome:
+    container_name: real-estate-hunter-selenium
+    hostname: real-estate-hunter-selenium
 #    image: selenium/standalone-chrome:103.0
-#    restart: always
-#    ports:
-#      - "1111:1111"
+    image: seleniarm/standalone-chromium:103.0 # Image supporting Mac's m1 cpu
+    restart: always
+    ports:
+      - "4444:4444"
 
 volumes:
   db_data:
