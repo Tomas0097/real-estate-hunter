@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from real_estate_hunter.web_parsers import get_parser_by_marketplace_code
+from real_estate_hunter.web_parsers import get_web_parser
 
 from web.models import Marketplace
 
@@ -9,15 +9,17 @@ def index(request):
     return HttpResponse("Real estate Hunter is working :)")
 
 
-STAT_NUMBER_OF_FLATS = "number_of_flats"
-
-
 def parse_marketplace(request, marketplace_code):
-    stats = {STAT_NUMBER_OF_FLATS: 0}
-    parser = get_parser_by_marketplace_code(marketplace_code)
+    stats = {
+        "properties_amount": 0,
+        "properties_with_price": 0,
+        "properties_without_price": 0,
+        "properties_price_together": 0
+    }
+    parser = get_web_parser(marketplace_code)
 
     marketplace = Marketplace.objects.get(code=marketplace_code)
-    for source_link in marketplace.marketplacesourcelink_set.all():
-        stats[STAT_NUMBER_OF_FLATS] += parser(source_link)
+    for starting_source in marketplace.marketplacesourcelink_set.all():
+        stats["properties_amount"] += parser(starting_source.link)
 
-    return HttpResponse(f"Parsing {marketplace.name} completed. Number of flats: {stats[STAT_NUMBER_OF_FLATS]}.")
+    return HttpResponse(f"Parsing {marketplace.name} completed. Number of flats: {stats['properties_amount']}.")
