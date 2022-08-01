@@ -15,13 +15,8 @@ def get_web_parser(marketplace_code: str) -> Callable:
     return web_parsers[marketplace_code]
 
 
-# 20k items will be parsed after 30 hours Approximately :(
+# 20k items will be parsed after 30 hours approximately :(
 def web_parser_sreality(marketplace_obj: Marketplace):
-    source = marketplace_obj.starting_source_link
-
-    # When an error occurs before the quit of the driver next parsing won't function.
-    # Then the restart of the docker with selenium will be needed.
-    driver = start_chrome_driver()
     stats = {
         "properties_amount": 0,
         "properties_with_price": 0,
@@ -32,7 +27,13 @@ def web_parser_sreality(marketplace_obj: Marketplace):
         marketplace=marketplace_obj,
         start_scanning_date=timezone.now(),
     )
+    source = marketplace_obj.starting_source_link
 
+    # When an error occurs before the quit of the driver next parsing won't work.
+    # Then a restart of the docker container with selenium driver will be needed.
+    driver = start_chrome_driver()
+
+    # Every loop is one page in the Sreality marketplace.
     while True:
         driver.get(source)
         soup = BeautifulSoup(driver.page_source, "html.parser")
