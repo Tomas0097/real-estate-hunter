@@ -23,6 +23,14 @@ class Marketplace(IdModel):
         blank=False,
         null=False,
     )
+    starting_source_link = models.URLField(
+        verbose_name=_("Starting source link"),
+        help_text=_(
+            "Parser starts scanning the marketplace at this link and expecting pagination."
+        ),
+        blank=False,
+        null=False,
+    )
 
     def __str__(self):
         return self.name
@@ -30,6 +38,52 @@ class Marketplace(IdModel):
     class Meta:
         verbose_name = _("Marketplace")
         verbose_name_plural = _("Marketplaces")
+
+
+class MarketplaceData(IdModel):
+    marketplace = models.ForeignKey(
+        Marketplace,
+        verbose_name=_("Marketplace"),
+        on_delete=models.RESTRICT,
+        blank=False,
+        null=False,
+    )
+    start_scanning_date = models.DateTimeField(
+        verbose_name=_("Start scanning date"),
+        blank=False,
+        null=False
+    )
+    end_scanning_date = models.DateTimeField(
+        verbose_name=_("End scanning date"),
+        blank=True,
+        null=True
+    )
+    properties_amount = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        return self.marketplace.name
+
+    class Meta:
+        verbose_name = _("Marketplace Data")
+        verbose_name_plural = _("Marketplaces data")
+
+
+# class MarketplaceSourceLink(IdModel):
+#     marketplace = models.ForeignKey(
+#         Marketplace,
+#         verbose_name=_("Marketplace"),
+#         on_delete=models.RESTRICT,
+#         blank=False,
+#         null=False,
+#     )
+#     link = models.URLField(
+#         verbose_name=_("Link"),
+#         blank=False,
+#         null=False,
+#     )
 
 
 # class Flat(IdModel):
@@ -54,18 +108,3 @@ class Marketplace(IdModel):
 #         choices=SIZE_CHOICES,
 #         max_length=10,
 #     )
-
-class MarketplaceSourceLink(IdModel):
-    marketplace = models.ForeignKey(
-        Marketplace,
-        verbose_name=_("Marketplace"),
-        on_delete=models.RESTRICT,
-        blank=False,
-        null=False,
-    )
-    link = models.URLField(
-        verbose_name=_("Link"),
-        blank=False,
-        null=False,
-    )
-

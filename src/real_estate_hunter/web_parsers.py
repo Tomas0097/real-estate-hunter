@@ -1,7 +1,10 @@
 from bs4 import BeautifulSoup
 from typing import Callable
 
+from django.utils import timezone
+
 from real_estate_hunter.selenium import start_chrome_driver
+from web.models import Marketplace, MarketplaceData
 
 
 def get_web_parser(marketplace_code: str) -> Callable:
@@ -12,8 +15,12 @@ def get_web_parser(marketplace_code: str) -> Callable:
     return web_parsers[marketplace_code]
 
 
-def web_parser_sreality(starting_source):
-    source = starting_source
+# 20k items will be parsed after 30 hours Approximately :(
+def web_parser_sreality(marketplace_obj: Marketplace):
+    source = marketplace_obj.starting_source_link
+
+    # When an error occurs before the quit of the driver next parsing won't function.
+    # Then the restart of the docker with selenium will be needed.
     driver = start_chrome_driver()
     stats = {
         "properties_amount": 0,
@@ -21,6 +28,10 @@ def web_parser_sreality(starting_source):
         "properties_without_price": 0,
         "properties_price_together": 0
     }
+    marketplace_data = MarketplaceData.objects.create(
+        marketplace=marketplace_obj,
+        start_scanning_date=timezone.now(),
+    )
 
     while True:
         driver.get(source)
@@ -52,6 +63,9 @@ def web_parser_sreality(starting_source):
         else:
             break
 
+    marketplace_data.end_scanning_date = timezone.now()
+    marketplace_data.properties_amount = stats["properties_amount"]
+    marketplace_data.save()
     driver.quit()
     return stats["properties_amount"]
 
