@@ -19,7 +19,7 @@ makemigrations_data:
 migrate:
 	$(manage_command) migrate $(app) $(migration)
 
-create_superuser:
+create_default_superuser:
 	$(manage_command) createsuperuser --noinput
 
 pip_install:
