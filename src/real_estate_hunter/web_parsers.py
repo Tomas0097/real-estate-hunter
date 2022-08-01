@@ -15,7 +15,6 @@ def get_web_parser(marketplace_code: str) -> Callable:
     return web_parsers[marketplace_code]
 
 
-# 20k items will be parsed after 30 hours approximately :(
 def web_parser_sreality(marketplace_obj: Marketplace):
     stats = {
         "properties_amount": 0,
