@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INTERNAL_IPS = [
     "127.0.0.1",
-    "172.30.0.1",  # Docker internal IP address
+    "172.50.0.1",  # Docker internal IP address
 ]
 
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "web.utils.show_toolbar"}
