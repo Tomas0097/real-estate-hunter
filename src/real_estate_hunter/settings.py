@@ -137,6 +137,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Convert numbers and dates format according to the current locale.
+USE_L10N = False
+
+# Global formats of date and datetime values in Django app:
+DATE_FORMAT = "d.m.Y"  # Django format - 22.02.2021
+DATETIME_FORMAT = "d.m.Y, G:i:s"  # Django format - 22.02.2021, 9:24:59
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
