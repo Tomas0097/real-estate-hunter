@@ -26,7 +26,7 @@ def web_parser_sreality(marketplace_obj: Marketplace):
         marketplace=marketplace_obj,
         start_scanning_date=timezone.now(),
     )
-    source = marketplace_obj.starting_source_link
+    source_link = marketplace_obj.starting_source_link
 
     # When an error occurs before the quit of the driver next parsing won't work.
     # Then a restart of the docker container with selenium driver will be needed.
@@ -34,7 +34,7 @@ def web_parser_sreality(marketplace_obj: Marketplace):
 
     # Every loop is one page in the Sreality marketplace.
     while True:
-        driver.get(source)
+        driver.get(source_link)
         soup = BeautifulSoup(driver.page_source, "html.parser")
         source_results = soup.find_all("div", class_="property ng-scope")
         stats["properties_amount"] += len(source_results)
@@ -56,7 +56,7 @@ def web_parser_sreality(marketplace_obj: Marketplace):
 
             if next_paging_button:
                 next_source_path = next_paging_button.find("a").attrs["href"]
-                source = "https://www.sreality.cz" + next_source_path
+                source_link = "https://www.sreality.cz" + next_source_path
 
             else:
                 break
